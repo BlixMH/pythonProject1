@@ -1,0 +1,81 @@
+import random
+
+
+def partie():
+    # Tout les variables
+    nbr_vic_cons = 0
+    num_vic = 0
+    num_def = 0
+    num_combat = 1
+    numero_adversaire = 0
+    niveau_vie = 20
+
+    print("Vous êtes un aventurier dans une forêt.")
+    # if niveau de vie = 0 fin de la partie
+    while niveau_vie >= 0:
+        # force de l'adversaire
+        force_aleatoire = random.randint(1, 5)
+
+        print(f"Vous atterisser sur un monstre de niveau {force_aleatoire}")
+        # donner les choix que tu peux faire
+        choix = int(input('Que voulez-vous faire?\n1- Combattre cet adversaire\n2- Contourner cet adversaire et aller '
+                          'ouvrir une autre porte\n3- Afficher les règles du jeu\n4- Quitter la partie\n\n'))
+        # si choix = 1
+        if choix == 1:
+            # ajouter le nbr de combat
+            num_combat += 1
+            numero_adversaire += 1
+            # affiche les information de la bataille
+            print(
+                f'\nAdversaire: {numero_adversaire}\nForce de adversaire: {force_aleatoire}\n'
+                f'Votre niveau de vie: {niveau_vie}\nCombat {num_combat} : {num_vic} vs {num_def}')
+            # lancé de dé aléatoire
+            score_de = random.randint(1, 6)
+            print(f'Lancer de dé:{score_de}')
+            # victoire
+            if score_de >= force_aleatoire:
+                niveau_vie += force_aleatoire
+                num_vic += 1
+                nbr_vic_cons += 1
+
+                print(f'Dernier combat: Victoire')
+                print(f'Niveau de vie: {niveau_vie}')
+                print(f'Notre de victoires consécutives: {nbr_vic_cons}')
+
+                print('\n')
+            # défaite
+            elif score_de <= force_aleatoire:
+                niveau_vie -= force_aleatoire
+                num_def += 1
+                nbr_vic_cons = 0
+
+                print(f'Dernier combat: Défaite')
+                print(f'Niveau de vie: {niveau_vie}')
+
+                if niveau_vie <= 0:
+                    print(f'La partie est terminée. Vous Avex vaincu {num_vic} monstres.')
+        # si choix = 2
+        if choix == 2:
+            # -1 niveau de vie
+            niveau_vie -= 1
+            print(f'Vous avez éviter le combat. Votre niveau de vie est maintenant à {niveau_vie}')
+        # si chois = 3
+        if choix == 3:
+            print(
+                'Pour réussir un combat, il faut que la valeur du dé lancé soit supérieure à la force de '
+                'l’adversaire.\n '
+                'Dans ce cas, le niveau de vie de l’usager est augmenté de la force de l’adversaire.\n'
+                'Une défaite a lieu lorsque la valeur du dé lancé par l’usager est inférieure ou égale à la force de '
+                'l’adversaire.\n '
+                'Dans ce cas, le niveau de vie de l’usager est diminué de la force de l’adversaire.\n'
+                'La partie se termine lorsque les points de vie de l’usager tombent sous 0.\n'
+                'L’usager peut combattre ou éviter chaque adversaire, dans le cas de l’évitement, il y a une pénalité '
+                'de 1 '
+                'point de vie.')
+        # si choix =4
+        if choix == 4:
+            print('Merci et au revoir...')
+            quit()
+
+
+partie()
